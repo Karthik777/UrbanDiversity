@@ -1,0 +1,25 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+mdg:camera
+iron:router
+mizzao:bootstrap-3
+cfs:filesystem
+cfs:graphicsmagick
+cfs:standard-packages
+cfs:gridfs
+cfs:ejson-file
+sjors:meteor-masonry
+mrt:jquery-imagesloaded
+semantic:ui-dropdown
+semantic:ui-transition
+mdg:geolocation
+dburles:google-maps
+accounts-password
+autopublish
+accounts-ui-unstyled
+accounts-ui

@@ -1,0 +1,74 @@
+<!-- urbandiversity.html -->
+<!-- main template -->
+<template name="ApplicationLayout">
+   {{> navigation}}
+  
+   {{#if currentUser}}
+  <article>
+    {{> yield}}
+  </article>
+{{/if}}
+ 
+</template>
+
+<template name="navigation">
+    <ul class="header">
+        <li class="nav"><a href="/">Home</a></li>
+        <li class="login"> {{> loginButtons}}</li>
+       <!--  <li><a href="{{pathFor route='register'}}">Register</a></li>
+        <li><a href="{{pathFor route='login'}}">Login</a></li> -->
+    </ul>
+</template>
+
+<template name = 'EndangeredAnimals'>
+    <div class="content">
+    <div class="wrap">
+       <div id="main" role="main">
+          <ul>
+             {{#each endangeredAnimal}} 
+              <li class="bordered-list">
+                {{> EachAnimal}}
+              </li>
+             {{/each}}
+          </ul>
+        </div>
+    </div>
+  </div>  
+</template>
+
+<template name="EachAnimal">
+<div class="result-item">
+  <div>
+      <a href="/{{category}}"><img src="{{path}}" width="200" height="200" name="{{category}}"></a>
+  </div>
+      <p>{{category}}</p>          
+</div>            
+</template>
+
+
+<!-- Specific animal list -->
+<template name = 'Animal'>
+    <div class="content">
+    <div class="wrap">
+       <div id="main" role="main">
+          <ul>
+             {{#each animal}} 
+              <li class="bordered-list">
+                {{> Species }}
+              </li>
+             {{/each}}
+          </ul>
+        </div>
+    </div>
+  </div>  
+</template>
+
+<template name="Species">
+<div class="result-item">
+  <div class="capture">
+      <a href="#"><img src="{{path}}" width="200" height="200" name="{{category}}-{{species}}"></a>
+  </div>
+      <p>{{species}}</p>          
+</div>            
+</template>
+
