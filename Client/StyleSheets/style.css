@@ -1,13 +1,25 @@
+.data-card{
+width:25%;
+float:left;
+margin:10px;
+}
 
-.selection-section{
+
+.selection-section
+{
   margin-top: 60px;
   margin-left: 20px;
 }
 
+.selection-section { text-align: center; width: 35%;}
+.categorySection { float: left; }
+.speciesSection { display: inline}
+.submit { float: right; }
+
 
 /* diaplay edit */
 .float-my-children > * {
-    float:left;
+    float:right ;
     margin-right:5px;
 }
 

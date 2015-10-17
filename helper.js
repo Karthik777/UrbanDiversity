@@ -24,54 +24,12 @@ Images.allow({
     return true;
   },
   update: function () {
-    return false;
+    return true;
   },
   remove: function () {
-    return false;
+    return true;
   },
   download: function () {
     return true;
   }
 });
-
-
-Meteor.methods({
-
-        insertImage: function(data,name,marker){
-
-               var fileObj = Images.insert(data);
-
-				       Data.insert({
-				            category: name[0],
-				            name: name[1],
-				            marker: marker,
-				            _id: fileObj._id,
-				            createdAt: new Date(),            // current time
-				            owner: Meteor.userId(),           // _id of logged in user
-				            username: Meteor.user().username // username of logged in user
-                  });
-                  //
-                  // var form = new FormData();
-                  // form.append("image_request[locale]", "en-US");
-                  // form.append("image_request[image]", data);
-                  // var settings = {
-                  //   "async": true,
-                  //   "crossDomain": true,
-                  //   "url": "https://api.cloudsightapi.com/image_requests",
-                  //   "method": "POST",
-                  //   "headers": {
-                  //     "authorization": "CloudSight DqE2OqTsKI_DR_Ge2NONNw",
-                  //   },
-                  //   "processData": false,
-                  //   "contentType": false,
-                  //   "mimeType": "multipart/form-data",
-                  //   "data": form
-                  // }
-                  //
-                  // $.ajax(settings).done(function (response) {
-                  //   console.log(response);
-                  //
-                  // });
-                  		},
-
-		});

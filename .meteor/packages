@@ -6,7 +6,6 @@
 
 mdg:camera
 iron:router
-mizzao:bootstrap-3
 cfs:filesystem
 cfs:graphicsmagick
 cfs:standard-packages
@@ -26,7 +25,6 @@ meteorhacks:npm
 
 
 npm-container
-autopublish
 standard-minifiers
 meteor-base
 mobile-experience
@@ -41,3 +39,5 @@ ejson
 spacebars
 check
 mizzao:jquery-ui
+jquery
+materialize:materialize@=0.97.0

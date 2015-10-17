@@ -74,4 +74,28 @@ Meteor.startup(function () {
     return Images.find();
   });
 
+  Meteor.publish("Data",function(){
+    return Data.find();
+  });
+
+  Meteor.methods({
+
+          insertImage: function(id,name,marker,result){
+
+  				       Data.insert({
+  				            category: name[0],
+  				            name: name[1],
+  				            marker: marker,
+  				            _id: id,
+                      result: result,
+  				            createdAt: new Date(),            // current time
+  				            owner: Meteor.userId(),           // _id of logged in user
+  				            username: Meteor.user().username // username of logged in user
+                    });
+                  },
+          deleteItem: function(id)
+          {
+            Data.remove({_id:id});
+          }
+  		});
   });
