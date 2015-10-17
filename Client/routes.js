@@ -6,6 +6,15 @@ Router.configure({
 
 Router.map(function(){
 
+
+	this.route('/mapview',function(){
+	this.render('mapview');
+	});
+
+	this.route('/data',function(){
+		this.render('imageView');
+	})
+
 this.route('/',function(){
 	this.render('EndangeredAnimals');
 });
@@ -18,9 +27,14 @@ template: "Animal",
 // 	},
 data: function(){
 	var name = this.params._name;
-	
 	Session.set("currentAnimal",name);
 }
 
 });
+
 });
+
+Router.onBeforeAction(function() {
+  GoogleMaps.load();
+  this.next();
+}, { only: ['mapview'] });

@@ -1,0 +1,82 @@
+
+<template name="imageView">
+<div class="selection-section result-item">
+{{> category}}
+{{> Countofspecies}}
+{{> submit}}
+</div>
+{{> Images}}
+</template>
+
+<template name="Images">
+<div class="imageView result-item">
+  <ul>
+    {{#each ImageData}}
+    <li>
+    {{> ImageDisplay}}
+   </li>
+    {{/each}}
+  </ul>
+  </div>
+</template>
+<template name="submit">
+<p class="submit">
+      <input type="submit" value="Fetch" id="submit" />
+</p>
+</template>
+
+<template name="ImageDisplay">
+  <div class="row">
+          <div class="col s12 m6">
+            <div class="card pink darken-1">
+              <div class="card-content white-text">
+                <div class="image clearfix float-my-children">
+                  <img src="{{this.image.url store='images' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" width="200" height="200"/>
+                  <div class="row">
+                        <div class="col s12">Category : {{this.category}}</div>
+                        <div class="col s12">Species : {{this.name}}</div>
+                  </div>
+                </div>
+              <div class="card-action">
+                <a href="#">This is a link</a>
+                <a href="#">This is a link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>
+
+<template name="category">
+  <div class="ui selection dropdown categorySection">
+    <input type="hidden" name="Category">
+    <div id="animalID" class="default text">Category</div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      {{# each animalList}}
+        {{> categories}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="categories">
+  <div class="item" name="category" value ={{category}}>{{category}}</div>
+</template>
+
+<template name="Countofspecies">
+  <div class="ui selection dropdown speciesSection">
+    <input type="hidden" name="Category">
+    <div id="speciesID" class="default text">Species</div>
+    <i class="dropdown icon"></i>
+    <div class="menu" >
+      {{# each speciesList}}
+        {{> speciesName}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="speciesName">
+  <div class="item" name="species" value ={{species}}>{{species}}</div>
+</template>

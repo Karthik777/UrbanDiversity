@@ -2,22 +2,23 @@
 <!-- main template -->
 <template name="ApplicationLayout">
    {{> navigation}}
-  
    {{#if currentUser}}
   <article>
     {{> yield}}
   </article>
 {{/if}}
- 
 </template>
 
 <template name="navigation">
-    <ul class="header">
-        <li class="nav"><a href="/">Home</a></li>
-        <li class="login"> {{> loginButtons}}</li>
-       <!--  <li><a href="{{pathFor route='register'}}">Register</a></li>
-        <li><a href="{{pathFor route='login'}}">Login</a></li> -->
+    <nav>
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo center">Home</a>
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li><a href="/data">AdminEdit</a></li>
+      <li><a href="#">{{> loginButtons}}</a></li>
     </ul>
+  </div>
+</nav>
 </template>
 
 <template name = 'EndangeredAnimals'>
@@ -25,7 +26,7 @@
     <div class="wrap">
        <div id="main" role="main">
           <ul>
-             {{#each endangeredAnimal}} 
+             {{#each endangeredAnimal}}
               <li class="bordered-list">
                 {{> EachAnimal}}
               </li>
@@ -33,7 +34,7 @@
           </ul>
         </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 <template name="EachAnimal">
@@ -41,8 +42,8 @@
   <div>
       <a href="/{{category}}"><img src="{{path}}" width="200" height="200" name="{{category}}"></a>
   </div>
-      <p>{{category}}</p>          
-</div>            
+      <p>{{category}}</p>
+</div>
 </template>
 
 
@@ -52,7 +53,7 @@
     <div class="wrap">
        <div id="main" role="main">
           <ul>
-             {{#each animal}} 
+             {{#each animal}}
               <li class="bordered-list">
                 {{> Species }}
               </li>
@@ -60,7 +61,7 @@
           </ul>
         </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 <template name="Species">
@@ -68,7 +69,6 @@
   <div class="capture">
       <a href="#"><img src="{{path}}" width="200" height="200" name="{{category}}-{{species}}"></a>
   </div>
-      <p>{{species}}</p>          
-</div>            
+      <p>{{species}}</p>
+</div>
 </template>
-

@@ -149,6 +149,10 @@ li.bordered-list {
   float: left; border: 2px solid black; margin: 5px;
 }
 
+.image{
+	 border: 2px grey; margin: 5px;
+}
+
 .header{
   width:100%;
   float:left;

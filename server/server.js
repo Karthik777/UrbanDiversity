@@ -12,7 +12,7 @@ Meteor.startup(function () {
         {path: '/Spiders/sydney-funnel-web.jpg', category: 'Spider', species: 'Sydney Funnel Web'},
         {path: '/Spiders/sydney-trapdoor-spider.jpg', category: 'Spider', species: 'Sydney Trapdoor'},
         {path: '/Spiders/white-tailed-spider.jpg', category: 'Spider', species: 'White Tailed'}
-        
+
       ];
       animals.forEach(function (animal) {
         Animals.insert(animal);
@@ -37,7 +37,7 @@ Meteor.startup(function () {
       })
 
     }
-    
+
     if(!SpeciesSuite.findOne({category: 'Spider'}))
     {
       var animalList = [
@@ -46,7 +46,7 @@ Meteor.startup(function () {
       animalList.forEach(function(animal){
         SpeciesSuite.insert(animal);
       })
-      
+
     }
 
 
@@ -54,20 +54,24 @@ Meteor.startup(function () {
     {
       var animalList = [
        {category:'Frog', path:'Frog.jpg' },
-       
+
       ];
       animalList.forEach(function(animal){
         SpeciesSuite.insert(animal);
       })
-      
+
     }
-   
+
    Meteor.publish("SpeciesSuite",function(){
    	return SpeciesSuite.find();
    });
-   
+
    Meteor.publish("Animals",function(){
    	return Animals.find();
    });
+
+  Meteor.publish("Images",function(){
+    return Images.find();
+  });
 
   });
