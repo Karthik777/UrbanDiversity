@@ -29,9 +29,9 @@ if (Meteor.isClient) {
    // This marker is 20 pixels wide by 32 pixels high.
    size: new google.maps.Size(20, 32),
    // The origin for this image is (0, 0).
-  //  origin: new google.maps.Point(0, 0),
+   origin: new google.maps.Point(0, 0),
   //  // The anchor for this image is the base of the flagpole at (0, 32).
-  //  anchor: new google.maps.Point(0, 32)
+   anchor: new google.maps.Point(0, 32)
  };
 
   instance.autorun(function(){
@@ -42,6 +42,10 @@ if (Meteor.isClient) {
         FileData.forEach(function(user)
           {
           var imageIcon = CreateImage(ConstructImagePath(user.category,user.name));
+          if(imageIcon.height != 0)
+          {
+            imageIcon = CreateImage("/Icons/animal.ico");
+          }
           addMarkerWithTimeout(user.marker,i*200,user.name,imageIcon);
           i++;
           });
@@ -63,7 +67,7 @@ if (Meteor.isClient) {
           function ConstructImagePath(category,name)
           {
             var basepath = "/Icons"
-            var path = "/"+category+"/"+name+".ico";
+            var path = "/"+category+name.replace(" ","").toLowerCase()+".ico";
             return path;
           }
           function addMarkerWithTimeout(position, timeout,name,imageIcon) {
@@ -77,22 +81,22 @@ if (Meteor.isClient) {
                   }));
                 }, timeout);
               }
-        // Add a marker to the map once it's ready
-        var position = Geolocation.latLng();
-        var marker = new google.maps.Marker({
-          position: position,//map.options.center,
-          map: map.instance,
-          title:"redback",
-          icon: image,
-          animation: google.maps.Animation.DROP
-        });
-
-        var position = Geolocation.latLng();
-        var marker = new google.maps.Marker({
-          position: {lat: -25.307327,lng:134.131766},//map.options.center,
-          map: map.instance,
-          animation: google.maps.Animation.DROP
-        });
+        // // Add a marker to the map once it's ready
+        // var position = Geolocation.latLng();
+        // var marker = new google.maps.Marker({
+        //   position: position,//map.options.center,
+        //   map: map.instance,
+        //   title:"redback",
+        //   icon: image,
+        //   animation: google.maps.Animation.DROP
+        // });
+        //
+        // var position = Geolocation.latLng();
+        // var marker = new google.maps.Marker({
+        //   position: {lat: -25.307327,lng:134.131766},//map.options.center,
+        //   map: map.instance,
+        //   animation: google.maps.Animation.DROP
+        // });
       });
   });
 
