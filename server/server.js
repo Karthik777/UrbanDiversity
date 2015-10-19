@@ -86,6 +86,13 @@ Meteor.startup(function () {
           deleteItem: function(id)
           {
             Data.remove({_id:id});
+          },
+          updateItem:function(id,category,species)
+          {
+            console.log(id,category,species);
+            Data.update({_id : id},{
+            $set: {name: species, category: category}
+      });
           }
   		});
   });

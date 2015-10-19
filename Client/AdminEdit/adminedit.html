@@ -1,11 +1,14 @@
 
 <template name="imageView">
-<div class="selection-section result-item">
+<div class="banner grid-example col s12"><h2 class="center-align black-text flow-text"><b>Edit Images</b></h2></div>
+<div class="selection-section result-item center-align">
 {{> category}}
 {{> Countofspecies}}
 {{> submit}}
 </div>
+{{#if isRefresh}}
 {{> Images}}
+{{/if}}
 </template>
 
 <template name="Images">
@@ -21,7 +24,7 @@
 </template>
 
 <template name="submit">
-  <button id="submit" class="btn waves-effect waves-light grey submit" type="submit" name="action">Fetch</button>
+  <button id="submit" class="btn waves-effect waves-light grey submit right valign">Fetch</button>
 </template>
 
 <template name="ImageDisplay">
@@ -29,20 +32,64 @@
     <div class="card-image col s12 m7 waves-effect waves-block waves-light">
       <img class="activator" src="{{this.image.url store='images' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" width="200" height="200"/>
     </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">{{this.name}}<i class="right">Edit</i></span>
-      <p><a class="deleteCard btn waves-effect waves-light red accent-3" href="#">Delete</a></p>
+    {{> CardContent}}
+
+</div>
+</template>
+
+<template name="CardContent">
+  <input class="hdnDataId" type="hidden" value="{{this._id}}">
+  <div class="card-content">
+    <span class="activator grey-text text-darken-4">
+      {{#if this.result}}
+      We've recognized this image as
+      <b>{{ resultoutput this.result}}</b>.
+      {{#unless isrecognized this.result}}
+      You could delete this Image.
+      {{/unless}}
+      {{else}}
+      We couldn't recognize this.
+      {{/if}}
+      </span>
+      <p></p>
+     <p><a class="deleteCard buttons btn red darken-2" href="#"><span class="white-text">Delete</span></a></p>
     </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-      <p>Here is some more information about this product that is only revealed once clicked on.</p>
-    </div>
+    {{> CardReveal}}
+</template>
+
+<template name="CardReveal">
+  <div class="card-reveal cardreveal">
+    {{#unless isEdit}}
+    {{> CardDescription}}
+    {{else}}
+     {{> CardEdit}}
+    {{/unless}}
+  </div>
+</template>
+
+<template name="CardDescription">
+  <span class="card-title grey-text text-darken-4"><span id="cardName">{{this.name}}</span><i class="material-icons right">close</i></span>
+  <ul class="collection data-collection">
+      <li class="collection-item" id="cardCategory">Category - {{this.category}}</li>
+      <li class="collection-item">Location - {{geo2address this.marker}}</li>
+  </ul>
+  <p><a class="editCard buttons btn blue darken-2" href="#"><span class="white-text">Edit</span></a></p>
+</template>
+
+<template name="CardEdit">
+  <span class="card-title grey-text text-darken-4">Edit Image<i class="material-icons right">close</i></span>
+
+  {{> SelectedCategory }}
+  {{> SelectedSpecies}}
+  <div class="card-action bottom">
+  <a class="buttons-half cancel btn grey darken-2 return" href="#"><span class="white-text">Cancel</span></a>
+  <a class="buttons-half accept btn green darken-2 return save" href="#"><span class="white-text">Save</span></a>
 </div>
 </template>
 
 <template name="category">
-  <div class="categorySection">
-  <a class='dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='categorydropdown'><span id="CategoryName">Category </span></a>
+  <div class="categorySection left valign">
+  <a class='category-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='categorydropdown'><span id="CategoryName">Category </span></a>
  <ul id='categorydropdown' class='dropdown-content'>
    {{# each animalList}}
      {{> categories}}
@@ -57,9 +104,31 @@
 </template>
 
 <template name="Countofspecies">
-  <div class="speciesSection">
-    <a class='dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='speciesdropdown'><span id="SpeciesName">Species</span></a>
+  <div class="speciesSection left valign">
+    <a class='species-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='speciesdropdown'><span id="SpeciesName">Species</span></a>
     <ul id='speciesdropdown' class='dropdown-content'>
+     {{# each speciesList}}
+       {{> speciesName}}
+     {{/each}}
+   </ul>
+  </div>
+</template>
+
+<template name="SelectedCategory">
+  <div class="categorySection left valign">
+  <a class='selectedcategory-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='selectedcategorydropdown'><span id="CategoryName">Category </span></a>
+ <ul id='selectedcategorydropdown' class='dropdown-content'>
+   {{# each animalList}}
+     {{> categories}}
+   {{/each}}
+ </ul>
+ </div>
+</template>
+
+<template name="SelectedSpecies">
+  <div class="speciesSection left valign">
+    <a class='selectedspecies-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='selectedspeciesdropdown'><span id="SpeciesName">Species</span></a>
+    <ul id='selectedspeciesdropdown' class='dropdown-content'>
      {{# each speciesList}}
        {{> speciesName}}
      {{/each}}
