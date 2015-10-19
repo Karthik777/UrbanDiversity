@@ -3,11 +3,6 @@ if (Meteor.isClient) {
     GoogleMaps.load();
   });
   Template.mapview.helpers({
-    loc: function () {
-      // return 0, 0 if the location isn't ready
-      return Geolocation.latLng() || { lat: 0, lng: 0 };
-    },
-    error: Geolocation.error,
     exampleMapOptions: function() {
     // Make sure the maps API has loaded
 
@@ -38,11 +33,13 @@ if (Meteor.isClient) {
         GoogleMaps.ready('exampleMap', function(map) {
           var markers = [];
           var FileData = Data.find();
+
           var i =0;
         FileData.forEach(function(user)
           {
           var imageIcon = CreateImage(ConstructImagePath(user.category,user.name));
-          if(imageIcon.height != 0)
+          console.log(imageIcon);
+          if(!imageIcon)
           {
             imageIcon = CreateImage("/Icons/animal.ico");
           }
@@ -61,13 +58,17 @@ if (Meteor.isClient) {
              // The anchor for this image is the base of the flagpole at (0, 32).
              anchor: new google.maps.Point(0, 32)
            };
-            return
+            return icon;
           }
 
           function ConstructImagePath(category,name)
           {
             var basepath = "/Icons"
-            var path = "/"+category+name.replace(" ","").toLowerCase()+".ico";
+            var path = basepath+"/"+
+                      category.toLowerCase()+
+                      "/"+
+                      name.replace(" ","")
+                      .toLowerCase()+".ico";
             return path;
           }
           function addMarkerWithTimeout(position, timeout,name,imageIcon) {

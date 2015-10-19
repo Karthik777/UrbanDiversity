@@ -96,12 +96,4 @@ Template.Images.onRendered=(function(){
  delete Session.keys.ImageData;
 });
 
-Template.imageView.rendered = function() {
-  var $container = $('.imageView');
-  $container.imagesLoaded( function(){
-    $container.masonry({
-      itemSelector : '.image'
-    });
-  });
-}
 }

@@ -1,16 +1,14 @@
 // routes.js
 
 Router.configure({
-	layoutTemplate : "ApplicationLayout"
+	layoutTemplate : "ApplicationLayout",
+	loadingTemplate:"loading"
 });
 
 Router.map(function(){
-
-
-	this.route('/mapview',{
-	data:function(){
+	this.route('/mapview',function(){
 	this.render('mapview');
-}});
+});
 
 	this.route('/data',function(){
 		this.render('imageView');

@@ -11,15 +11,21 @@
 
 <template name="navigation">
     <nav>
-  <div class="nav-wrapper">
-    <a href="/" class="brand-logo center">Home</a>
-    <ul id="nav-mobile" class="left hide-on-med-and-down">
-      <li><a href="/data">AdminEdit</a></li>
-      <li><a href="/mapview">MapView</a></li>
-            <li><a href="#">{{> loginButtons}}</a></li>
-    </ul>
-  </div>
-</nav>
+      <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">Home</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="/data">AdminEdit</a></li>
+              <li><a href="/mapview">MapView</a></li>
+              <li><a href="#">{{> loginButtons}}</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><a href="/data">AdminEdit</a></li>
+              <li><a href="/mapview">MapView</a></li>
+              <li><a href="#">{{> loginButtons}}</a></li>
+            </ul>
+      </div>
+  </nav>
 </template>
 
 <template name = 'EndangeredAnimals'>

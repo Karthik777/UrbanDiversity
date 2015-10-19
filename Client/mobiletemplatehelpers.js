@@ -62,7 +62,6 @@ var settings = {
 var returnObject= new Array();
 $.ajax(settings).done(function (response) {
 	var resp = EJSON.parse(response);
-	console.log(response);
 	var getURL = "https://api.cloudsightapi.com/image_responses/"+resp["token"];
 	var getsettings = {
 	  "url": getURL,
@@ -73,6 +72,7 @@ $.ajax(settings).done(function (response) {
 	  }
 	};
 		$.ajax(getsettings).done(function(getResponse){
+			console.log(getResponse);
 			if(getResponse.status =="completed"){
 				var responseRecommendation = getResponse.name;
 				returnObject.push(responseRecommendation);
@@ -81,12 +81,12 @@ $.ajax(settings).done(function (response) {
 		        returnObject.push(true);
 				}
 		    else{
-					alert("It seems like you have uploaded an unrelated image. We think it's a " + responseRecommendation);
+					Materialize.toast("It seems like you have uploaded an unrelated image. We think it's a " + responseRecommendation,2000);
 					returnObject.push(false);
 				}
 			}
 			else{
-				$.setTimeout(function(){
+				Meteor.setTimeout(function(){
 					$.ajax(getsettings).done(function(getResponse){
 					 if(getResponse.status =="completed"){
 						 var responseRecommendation = getResponse.name;
@@ -97,15 +97,19 @@ $.ajax(settings).done(function (response) {
 								 returnObject.push(true);
 						 }
 						 else{
-							 Materialize.toast("It seems like you have uploaded an unrelated image. We think it's a " + responseRecommendation, 5000);
+							 Materialize.toast("It seems like you have uploaded an unrelated image. We think it's a " + responseRecommendation, 2000);
 							 returnObject.push(false);
 						 }
 					 }
-				}, "2000");
+				}, "5000");
 			});
 		}
+		if(returnObject.length < 2)
+		{
+			Materialize.toast("We were not able to recognize the image.But our experts would do it later.", 2000);
+		}
 		var fileObj = Images.insert(dataString);
-		Meteor.call("insertImage",fileObj._id,name,Session.get('location'),returnObject);
+		Meteor.call("insertImage",fileObj._id,name,Geolocation.latLng(),returnObject);
 
 		});
 });
@@ -123,10 +127,9 @@ $.ajax(settings).done(function (response) {
       }
     });
 
-		Template.mapview.onCreated(function() {
-
-     });
-
+		Template.navigation.rendered = function() {
+		  this.$(".button-collapse").sideNav();
+		}
 
  Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
