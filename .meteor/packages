@@ -11,20 +11,14 @@ cfs:graphicsmagick
 cfs:standard-packages
 cfs:gridfs
 cfs:ejson-file
-sjors:meteor-masonry
 mrt:jquery-imagesloaded
-semantic:ui-dropdown
-semantic:ui-transition
 mdg:geolocation
-dburles:google-maps
 accounts-password
 accounts-ui-unstyled
 accounts-ui
 http
-meteorhacks:npm
 
 
-npm-container
 standard-minifiers
 meteor-base
 mobile-experience
@@ -41,3 +35,5 @@ check
 mizzao:jquery-ui
 jquery
 materialize:materialize@=0.97.0
+dburles:google-maps
+reactive-var

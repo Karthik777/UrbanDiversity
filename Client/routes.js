@@ -7,9 +7,10 @@ Router.configure({
 Router.map(function(){
 
 
-	this.route('/mapview',function(){
+	this.route('/mapview',{
+	data:function(){
 	this.render('mapview');
-	});
+}});
 
 	this.route('/data',function(){
 		this.render('imageView');
@@ -20,21 +21,19 @@ this.route('/',function(){
 });
 
 this.route('/',{
-path: '/:_name' ,
+path: '/:_name',
 template: "Animal",
 // waitOn: function(){
 // 		    return Meteor.subscribe("CalledAnimal", this.params._name);
 // 	},
 data: function(){
+	if(Geolocation.latLng())
+	{
 	var name = this.params._name;
 	Session.set("currentAnimal",name);
+  }
 }
 
 });
 
 });
-
-Router.onBeforeAction(function() {
-  GoogleMaps.load();
-  this.next();
-}, { only: ['mapview'] });

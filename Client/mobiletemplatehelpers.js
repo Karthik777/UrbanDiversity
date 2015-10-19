@@ -4,10 +4,13 @@ if (Meteor.isClient) {
 	Meteor.subscribe("Animals");
  Template.Animal.helpers({
     animal: function(){
+			if(Geolocation.latLng())
+			{
         var currentAnimal = Session.get("currentAnimal");
         var regex = new RegExp(["^", currentAnimal, "$"].join(""), "i");
         return Animals.find({category: regex});
-        },
+        }
+			},
   });
 
  Template.EndangeredAnimals.helpers({
@@ -70,9 +73,7 @@ $.ajax(settings).done(function (response) {
 	  }
 	};
 		$.ajax(getsettings).done(function(getResponse){
-			console.log(getResponse);
 			if(getResponse.status =="completed"){
-				console.log("completed 1 time");
 				var responseRecommendation = getResponse.name;
 				returnObject.push(responseRecommendation);
 				if(responseRecommendation.indexOf(name[0])> -1 || responseRecommendation.indexOf(name[1])> -1)
@@ -104,7 +105,7 @@ $.ajax(settings).done(function (response) {
 			});
 		}
 		var fileObj = Images.insert(dataString);
-		Meteor.call("insertImage",fileObj._id,name,Geolocation.latLng(),returnObject);
+		Meteor.call("insertImage",fileObj._id,name,Session.get('location'),returnObject);
 
 		});
 });
@@ -122,9 +123,10 @@ $.ajax(settings).done(function (response) {
       }
     });
 
-Template.ImageDisplay.events({
+		Template.mapview.onCreated(function() {
 
-});
+     });
+
 
  Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
