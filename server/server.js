@@ -50,7 +50,7 @@ Meteor.startup(function () {
 
     }
 
-    }
+
 
    Meteor.publish("SpeciesSuite",function(){
    	return SpeciesSuite.find();
