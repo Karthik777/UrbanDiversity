@@ -20,10 +20,14 @@ Template.SelectedCategory.events({
     }
 });
 
+Template.imageView.onCreated(function(){
+     this.isRefresh = new ReactiveVar(false);
+
+});
 
 Template.imageView.helpers({
   isRefresh: function(){
-     return Session.get("isRefresh");
+     return Template.instance().isRefresh.get();
   }
 });
 
@@ -32,7 +36,7 @@ Template.imageView.events({
         var animalcategory = tmpl.$('#CategoryName').html();
         var speciescategory = tmpl.$('#SpeciesName').html();
         loadData(animalcategory,speciescategory);
-        Session.set("isRefresh",true);
+        tmpl.isRefresh.set(true);
 }});
 
 
@@ -86,7 +90,7 @@ Template.category.rendered = function() {
 
 Template.SelectedCategory.rendered = function() {
   Tracker.autorun(function(){
-  this.$('.selectedcategory-dropdown').dropdown({
+  Template.instance().$('.selectedcategory-dropdown').dropdown({
     inDuration: 300,
     outDuration: 225,
     constrain_width: false, // Does not change width of dropdown to that of the activator
@@ -113,7 +117,7 @@ Template.SelectedCategory.helpers({
 
 Template.Countofspecies.rendered = function() {
   Tracker.autorun(function(){
-  this.$('.species-dropdown').dropdown({
+  Template.instance().$('.species-dropdown').dropdown({
     inDuration: 300,
     outDuration: 225,
     constrain_width: false, // Does not change width of dropdown to that of the activator
@@ -126,7 +130,7 @@ Template.Countofspecies.rendered = function() {
 
 Template.SelectedSpecies.rendered = function() {
   Tracker.autorun(function(){
-  this.$('.selectedspecies-dropdown').dropdown({
+  Template.instance().$('.selectedspecies-dropdown').dropdown({
     inDuration: 300,
     outDuration: 225,
     constrain_width: false, // Does not change width of dropdown to that of the activator
@@ -174,15 +178,9 @@ Template.CardContent.events({
   'click .deleteCard' : function(event,tmpl) {
     var id = tmpl.$('.data-card .hdnDataId').val();
     // Meteor.call('deleteItem',id);
-    console.log($(event.target).parents('li'));
      tmpl.$(event.target).parents('li').remove();
   },
-  "click .accept": function(event,template){
-    var animalcategory = template.$('#CategoryName').html();
-    var speciescategory = template.$('#SpeciesName').html();
-    var id = template.$('.hdnDataId').val();
-    Meteor.call("updateItem",id,animalcategory,speciescategory);
-  }
+
 });
 
 Template.CardDescription.helpers({
@@ -206,25 +204,33 @@ Template.CardDescription.helpers({
 
 Template.CardReveal.events({
   "click .editCard": function(event, template){
-       Session.set('isEdit',true);
+       template.isEdit.set(true);
   },
   "click .return": function(event,template){
-    Session.set("isEdit", false);
+    template.isEdit.set(false);
   },
   "click .save": function(event,template){
 
+  },
+  "click .accept": function(event,template){
+    var animalcategory = template.$('#CategoryName').html();
+    var speciescategory = template.$('#SpeciesName').html();
+    var id = template.$('.hdncardId').val();
+    Meteor.call("updateItem",id,animalcategory,speciescategory);
+    $('#submit').click();
   }
 
 });
 
-Template.CardReveal.onCreated = function(){
-   Session.setDefault("isEdit", false);
-};
+Template.CardReveal.onCreated(function(){
+   this.isEdit = new ReactiveVar(false);
+
+});
 
 
 Template.CardReveal.helpers({
   isEdit: function(){
-     return Session.get("isEdit");
+     return Template.instance().isEdit.get();
   },
 
 });

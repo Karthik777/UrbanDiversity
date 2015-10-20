@@ -89,7 +89,6 @@ Meteor.startup(function () {
           },
           updateItem:function(id,category,species)
           {
-            console.log(id,category,species);
             Data.update({_id : id},{
             $set: {name: species, category: category}
       });

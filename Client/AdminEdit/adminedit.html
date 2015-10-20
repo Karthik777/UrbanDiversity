@@ -60,6 +60,7 @@
 </template>
 
 <template name="CardReveal">
+  <input class="hdncardId" type="hidden" value="{{this._id}}">
   <div class="card-reveal cardreveal">
     {{#unless isEdit}}
     {{> CardDescription}}
@@ -118,7 +119,7 @@
 
 <template name="SelectedCategory">
   <div class="categorySection left valign">
-  <a class='selectedcategory-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='selectedcategorydropdown'><span id="CategoryName">Category </span></a>
+  <a class='selectedcategory-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='selectedcategorydropdown'><span class ="SelectedCategoryName" id="CategoryName">Category </span></a>
  <ul id='selectedcategorydropdown' class='dropdown-content'>
    {{# each animalList}}
      {{> categories}}
@@ -129,7 +130,7 @@
 
 <template name="SelectedSpecies">
   <div class="speciesSection left valign">
-    <a class='selectedspecies-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='selectedspeciesdropdown'><span id="SpeciesName">Species</span></a>
+    <a class='selectedspecies-dropdown dropdown-button waves-effect waves-light light-blue lighten-3 btn' href='#' data-activates='selectedspeciesdropdown'><span class="SelectedSpeciesName" id="SpeciesName">Species</span></a>
     <ul id='selectedspeciesdropdown' class='dropdown-content'>
      {{# each speciesList}}
        {{> speciesName}}
