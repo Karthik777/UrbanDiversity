@@ -1,31 +1,61 @@
 <!-- urbandiversity.html -->
 <!-- main template -->
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
 <template name="ApplicationLayout">
    {{> navigation}}
    {{#if currentUser}}
-  <article>
+  <div class="container">
     {{> yield}}
-  </article>
+  </div>
 {{/if}}
 </template>
 
 <template name="navigation">
     <nav>
       <div class="nav-wrapper">
-            <a href="/" class="brand-logo center">Home</a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-              <li><a href="/data">AdminEdit</a></li>
-              <li><a href="/mapview">MapView</a></li>
-              <li><a href="#">{{> loginButtons}}</a></li>
-            </ul>
-            <ul class="side-nav" id="mobile-demo">
-              <li><a href="/data">AdminEdit</a></li>
-              <li><a href="/mapview">MapView</a></li>
-              <li><a href="#">{{> loginButtons}}</a></li>
-            </ul>
+          {{#if currentUser}}
+            {{> privateView}}
+            {{else}}
+            {{> publicView}}
+          {{/if}}
       </div>
   </nav>
+</template>
+
+<template name="privateView">
+  <a href="/" class="brand-logo center">Spot Me!</a>
+  <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+  <ul class="right hide-on-med-and-down">
+    <li><a href="/data">Edit</a></li>
+    <li><a href="/mapview">HotSpot</a></li>
+    <li><a class="login-dropdown" href="#!" data-activates="logindropdown">{{getUserName}}<i class="material-icons right">arrow_drop_down</i></a></li>
+    <ul id='logindropdown' class='dropdown-content'>
+      <li><a href="#" class="logout">LogOut</a></li>
+    </ul>
+
+  </ul>
+  <ul class="side-nav" id="mobile-demo">
+    <li><a href="/data">Edit</a></li>
+    <li><a href="/mapview">HotSpot</a></li>
+    <li>
+        <p><span class="blue-text">Hi {{getUserName}}</span></p>
+        <p><a href="#" class="logout">LogOut</a></p>
+      </li>
+    </ul>
+</template>
+
+<template name="publicView">
+  <a href="/" class="brand-logo center">Home</a>
+  <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+  <ul class="right hide-on-med-and-down">
+      <li><a href="#" class="login">Login</a></li>
+  </ul>
+  <ul class="side-nav" id="mobile-demo">
+     <li><a href="#" class="login">Login</a></li>
+  </ul>
 </template>
 
 <template name = 'EndangeredAnimals'>

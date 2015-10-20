@@ -37,3 +37,5 @@ jquery
 materialize:materialize@=0.97.0
 dburles:google-maps
 reactive-var
+service-configuration
+mrt:accounts-auth0

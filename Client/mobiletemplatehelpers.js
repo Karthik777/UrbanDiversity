@@ -2,6 +2,40 @@
 if (Meteor.isClient) {
 	Meteor.subscribe("SpeciesSuite");
 	Meteor.subscribe("Animals");
+
+Template.navigation.events({
+	'click .login': function(event,template){
+    var t =  Meteor.loginWithAuth0();
+		console.log(t);
+		},
+		'click .logout': function(event,template){
+	      Meteor.logout();
+				}
+		});
+
+		Template.privateView.rendered = function() {
+	  	    this.$('.login-dropdown').dropdown();
+					this.$(".button-collapse").sideNav();
+				  }
+
+		Template.publicView.rendered = function() {
+				 		 this.$(".button-collapse").sideNav();
+				 			 }
+
+		Template.privateView.helpers({
+			 getUserName: function(){
+				 if(Meteor.user().profile)
+				 {
+						return Meteor.user().profile.name;
+					}
+					else {
+						return Meteor.user().username;
+					}
+				}
+			});
+
+
+
  Template.Animal.helpers({
     animal: function(){
 			if(Geolocation.latLng())
@@ -127,9 +161,6 @@ $.ajax(settings).done(function (response) {
       }
     });
 
-		Template.navigation.rendered = function() {
-		  this.$(".button-collapse").sideNav();
-		}
 
  Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
