@@ -99,8 +99,9 @@ Meteor.startup(function () {
 ServiceConfiguration.configurations.remove({ service: 'auth0' });
 ServiceConfiguration.configurations.insert({
   service:      'auth0',
-  domain:       'contoso.auth0.com',
-  clientId:     'w560wy7zE4S3VRVA9SAkhy4N7E6hhZxJ',
-  clientSecret: '2HbTrXcXoTAMdHM_SsN3EBQ6DMbYvwExVGZIXF6Kmzce1tuIAU7MxnT2yUnqifkh'
+  domain:       'karthik.au.auth0.com',
+  clientId:     'Qx0E3rVXe13dsYi6KeK2d9y0tjbZbEgC',
+  clientSecret: 'BwP7X7fU2IyCDDt2rgI501UbsSOAQx5zKeU8wTZF8QgRySnoIA9GstfvhgdW1bt6',
+  redirect_uri: 'http://spotme.meteor.com'
 });
   });
