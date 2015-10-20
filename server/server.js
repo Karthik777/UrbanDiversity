@@ -102,6 +102,7 @@ ServiceConfiguration.configurations.insert({
   domain:       'karthik.au.auth0.com',
   clientId:     'Qx0E3rVXe13dsYi6KeK2d9y0tjbZbEgC',
   clientSecret: 'BwP7X7fU2IyCDDt2rgI501UbsSOAQx5zKeU8wTZF8QgRySnoIA9GstfvhgdW1bt6',
-  redirect_uri: 'http://spotme.meteor.com'
+  callbackURL:  '/',
+  redirectURI:'https://karthik.au.auth0.com/login/callback'
 });
   });
