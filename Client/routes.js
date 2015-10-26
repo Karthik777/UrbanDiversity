@@ -14,6 +14,11 @@ Router.map(function(){
 		this.render('imageView');
 	})
 
+	this.route('/upload',function(){
+		this.render('upload');
+	})
+
+
 this.route('/',function(){
 	this.render('EndangeredAnimals');
 });

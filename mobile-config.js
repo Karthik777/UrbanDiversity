@@ -5,8 +5,8 @@ App.info({
 });
 
 App.icons({
-  'android_ldpi': '/Icons/Insect-24.png',
-  'android_mdpi': 'resources/icons/Insect-32.png',
-  'android_hdpi': 'resources/icons/Insect-64.png',
-  'android_xhdpi': 'resources/icons/Insect-100.png'
+  'android_ldpi': 'public/Icons/Insect-24.png',
+  'android_mdpi': 'public/Icons/Insect-32.png',
+  'android_hdpi': 'public/Icons/Insect-64.png',
+  'android_xhdpi': 'public/Icons/Insect-100.png'
 });

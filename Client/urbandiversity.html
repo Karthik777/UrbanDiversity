@@ -25,6 +25,28 @@
   </nav>
 </template>
 
+<template name="upload">
+  <h3 class="black-text">Upload Images</h3>
+	<form class="form" id = "myform">
+    {{> category}}
+    {{> Countofspecies}}
+
+		<p>
+			<input type="file" id="file" class ="btn grey" name="pic" accept="image/*" required>
+		</p>
+
+		<p class="submit">
+			<input type="submit" value="Send" id="submit" class="btn green"/>
+		</p>
+
+	</form>
+
+
+</template>
+
+
+
+
 <template name="privateView">
   <a href="/" class="brand-logo center">Spot Me!</a>
   <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>

@@ -34,6 +34,16 @@ Template.navigation.events({
 				}
 			});
 
+			Template.upload.events(
+
+				{'click input[type="submit"]' : function(event,template) {
+				  event.preventDefault();
+			    var file = $('#file').get(0).files[0];
+			    file.owner = Meteor.userId();
+			    console.log(file);
+          var animal ="Bird-Seagull";
+				  recognizeAndStoreData1(file,animal.split("-"));
+				}});
 
 
  Template.Animal.helpers({
@@ -70,6 +80,82 @@ Template.navigation.events({
 	    }
 
 	    return new File([ia],"image.jpeg", {type:mimeString});
+	}
+	function recognizeAndStoreData1(data,name)
+	{
+	var image = data;
+	var form = new FormData();
+	form.append("image_request[locale]", "en-US");
+	form.append("image_request[image]", image);
+
+	var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": "https://api.cloudsightapi.com/image_requests",
+	  "method": "POST",
+	  "headers": {
+	    "authorization": "CloudSight DqE2OqTsKI_DR_Ge2NONNw",
+	    "cache-control": "no-cache"
+	  },
+	  "processData": false,
+	  "contentType": false,
+	  "mimeType": "multipart/form-data",
+	  "data": form
+	}
+	var returnObject= new Array();
+	$.ajax(settings).done(function (response) {
+		var resp = EJSON.parse(response);
+		var getURL = "https://api.cloudsightapi.com/image_responses/"+resp["token"];
+		var getsettings = {
+		  "url": getURL,
+		  "method": "GET",
+		  "headers": {
+		    "authorization": "CloudSight DqE2OqTsKI_DR_Ge2NONNw",
+		    "cache-control": "no-cache"
+		  }
+		};
+			$.ajax(getsettings).done(function(getResponse){
+				console.log(getResponse);
+				if(getResponse.status =="completed"){
+					var responseRecommendation = getResponse.name;
+					returnObject.push(responseRecommendation);
+					if(responseRecommendation.indexOf(name[0])> -1 || responseRecommendation.indexOf(name[1])> -1)
+					{
+			        returnObject.push(true);
+					}
+			    else{
+						Materialize.toast("It seems like you have uploaded an unrelated image. We think it's a " + responseRecommendation,2000);
+						returnObject.push(false);
+					}
+				}
+				else{
+					Meteor.setTimeout(function(){
+						$.ajax(getsettings).done(function(getResponse){
+						 if(getResponse.status =="completed"){
+							 var responseRecommendation = getResponse.name;
+							 returnObject.push(responseRecommendation);
+							 if(responseRecommendation.indexOf(name[0])> -1 || responseRecommendation.indexOf(name[1])> -1)
+							 {
+								   Materialize.toast("Recognized as " + responseRecommendation);
+									 returnObject.push(true);
+							 }
+							 else{
+								 Materialize.toast("It seems like you have uploaded an unrelated image. We think it's a " + responseRecommendation, 2000);
+								 returnObject.push(false);
+							 }
+						 }
+					}, 5000);
+				});
+			}
+			if(returnObject.length < 2)
+			{
+				Materialize.toast("We were not able to recognize the image.But our experts would do it later.", 2000);
+			}
+			var fileObj = Images.insert(data);
+			Meteor.call("insertImage",fileObj._id,name,Geolocation.latLng(),returnObject);
+
+			});
+	});
 	}
 
 function recognizeAndStoreData(dataString,name)
@@ -135,7 +221,7 @@ $.ajax(settings).done(function (response) {
 							 returnObject.push(false);
 						 }
 					 }
-				}, "5000");
+				}, 5000);
 			});
 		}
 		if(returnObject.length < 2)
@@ -143,6 +229,7 @@ $.ajax(settings).done(function (response) {
 			Materialize.toast("We were not able to recognize the image.But our experts would do it later.", 2000);
 		}
 		var fileObj = Images.insert(dataString);
+
 		Meteor.call("insertImage",fileObj._id,name,Geolocation.latLng(),returnObject);
 
 		});
