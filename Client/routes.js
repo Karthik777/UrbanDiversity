@@ -18,7 +18,6 @@ Router.map(function(){
 		this.render('upload');
 	})
 
-
 this.route('/',function(){
 	this.render('EndangeredAnimals');
 });
